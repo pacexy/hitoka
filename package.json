@@ -1,0 +1,20 @@
+{
+  "name": "hitoka",
+  "version": "0.1.0",
+  "description": "pacexy's javascript style guide.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pacexy/hitoka.git"
+  },
+  "keywords": [],
+  "author": "pacexy",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pacexy/hitoka/issues"
+  },
+  "homepage": "https://github.com/pacexy/hitoka#readme"
+}
