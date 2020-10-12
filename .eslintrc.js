@@ -1,12 +1,14 @@
 module.exports = {
-  env: {
-    es6: true,
-    node: true,
-  },
-  extends: 'airbnb',
-  parser: 'babel-eslint',
+  extends: [
+    'eslint:recommended',
+    'plugin:node/recommended',
+    // https://github.com/prettier/eslint-plugin-prettier
+    // https://zhuanlan.zhihu.com/p/80574300
+    'plugin:prettier/recommended',
+  ],
+  parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'script',
     ecmaVersion: 2021,
   },
-};
+}
