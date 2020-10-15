@@ -1,8 +1,9 @@
-#!/usr/bin/env node
-
+// @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'require'. Do you need to install... Remove this comment to see the full error message
 const child_process = require('child_process')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fs'.
 const fs = require('fs')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'formatJSON... Remove this comment to see the full error message
 const { formatJSON, writeTemplate } = require('./utils')
 
 const pkgManager = 'yarn'
@@ -19,6 +20,7 @@ function generatePrettierConfig() {
 function addDependencies() {
   console.log(`Add dependecies...`)
 
+  // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'require'. Do you need to install... Remove this comment to see the full error message
   const pkg = require('../package.json')
   const destPkg = JSON.parse(
     fs.readFileSync('./package.json', { encoding: 'utf8' }),
@@ -33,6 +35,7 @@ function addDependencies() {
   }
 
   for (const depName of Object.keys(deps)) {
+    // @ts-expect-error ts-migrate(7015) FIXME: Element implicitly has an 'any' type because index... Remove this comment to see the full error message
     destPkg.devDependencies[depName] = deps[depName]
   }
 
