@@ -1,10 +1,10 @@
-// @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'require'. Do you need to install... Remove this comment to see the full error message
-const child_process = require('child_process')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fs'.
-const fs = require('fs')
+#!/usr/bin/env node
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'formatJSON... Remove this comment to see the full error message
-const { formatJSON, writeTemplate } = require('./utils')
+import child_process from 'child_process'
+import fs from 'fs'
+import { PackageJson } from 'type-fest'
+
+import { formatJSON, writeTemplate } from './utils'
 
 const pkgManager = 'yarn'
 const pkgInstallCommand = 'install'
@@ -20,14 +20,13 @@ function generatePrettierConfig() {
 function addDependencies() {
   console.log(`Add dependecies...`)
 
-  // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'require'. Do you need to install... Remove this comment to see the full error message
-  const pkg = require('../package.json')
-  const destPkg = JSON.parse(
+  const pkg: PackageJson = require('../package.json')
+  const destPkg: PackageJson = JSON.parse(
     fs.readFileSync('./package.json', { encoding: 'utf8' }),
   )
 
-  const deps = {
-    [pkg.name]: `^${pkg.version}`,
+  const deps: Record<string, string> = {
+    [pkg.name!]: `^${pkg.version}`,
   }
 
   if (!destPkg.devDependencies) {
@@ -35,7 +34,6 @@ function addDependencies() {
   }
 
   for (const depName of Object.keys(deps)) {
-    // @ts-expect-error ts-migrate(7015) FIXME: Element implicitly has an 'any' type because index... Remove this comment to see the full error message
     destPkg.devDependencies[depName] = deps[depName]
   }
 
