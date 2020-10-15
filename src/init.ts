@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-const child_process = require('child_process')
-const fs = require('fs')
+import child_process from 'child_process'
+import fs from 'fs'
+import { PackageJson } from 'type-fest'
 
-const { formatJSON, writeTemplate } = require('./utils')
+import { formatJSON, writeTemplate } from './utils'
 
 const pkgManager = 'yarn'
 const pkgInstallCommand = 'install'
@@ -19,13 +20,13 @@ function generatePrettierConfig() {
 function addDependencies() {
   console.log(`Add dependecies...`)
 
-  const pkg = require('../package.json')
-  const destPkg = JSON.parse(
+  const pkg: PackageJson = require('../package.json')
+  const destPkg: PackageJson = JSON.parse(
     fs.readFileSync('./package.json', { encoding: 'utf8' }),
   )
 
-  const deps = {
-    [pkg.name]: `^${pkg.version}`,
+  const deps: Record<string, string> = {
+    [pkg.name!]: `^${pkg.version}`,
   }
 
   if (!destPkg.devDependencies) {

@@ -1,12 +1,12 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-function formatJSON(object) {
-  const json = JSON.stringify(object, null, '  ')
+function formatJSON(object: object) {
+  const json = JSON.stringify(object, null, '\t')
   return `${json}\n`
 }
 
-function writeTemplate(destFileName) {
+function writeTemplate(destFileName: string) {
   console.log(`Writing ${destFileName}...`)
 
   const src = path.join(__dirname, '../template', `${destFileName}.temp`)
@@ -15,7 +15,7 @@ function writeTemplate(destFileName) {
   fs.copyFileSync(src, dest)
 }
 
-module.exports = {
+export {
   formatJSON,
   writeTemplate,
 }
