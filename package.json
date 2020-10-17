@@ -1,7 +1,7 @@
 {
   "name": "hitoka",
-  "version": "0.2.0",
-  "description": "Hitoka is an eslint & prettier initializer.",
+  "version": "0.2.1",
+  "description": "Hitoka is an eslint, prettier and typescript initializer.",
   "main": "index.js",
   "bin": {
     "hitoka": "build/src/init.js"
@@ -26,22 +26,16 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/eslint-parser": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^4.0.0",
     "prettier": "^2.1.2",
     "type-fest": "^0.18.0"
   },
   "devDependencies": {
     "@types/node": "^14.11.8",
+    "@typescript-eslint/parser": "^4.4.1",
     "typescript": "^4.0.3"
   }
 }

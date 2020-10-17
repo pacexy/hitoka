@@ -6,7 +6,7 @@ module.exports = {
     // https://zhuanlan.zhihu.com/p/80574300
     'plugin:prettier/recommended',
   ],
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'script',
     ecmaVersion: 2021,

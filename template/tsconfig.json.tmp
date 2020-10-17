@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/hitoka/tsconfig.base.json",
+  "extends": "hitoka/tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "build"
