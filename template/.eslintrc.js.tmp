@@ -1,3 +1,3 @@
 module.exports = {
-  extends: './node_modules/hitoka',
+  extends: './node_modules/hitoka/.eslintrc.js',
 }
