@@ -9,13 +9,10 @@ function formatJSON(object: object) {
 function writeTemplate(destFileName: string) {
   console.log(`Writing ${destFileName}...`)
 
-  const src = path.join(__dirname, '../template', `${destFileName}.temp`)
+  const src = path.join(__dirname, '../template', `${destFileName}.tmp`)
   const dest = path.resolve(destFileName)
 
   fs.copyFileSync(src, dest)
 }
 
-export {
-  formatJSON,
-  writeTemplate,
-}
+export { formatJSON, writeTemplate }

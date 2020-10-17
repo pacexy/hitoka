@@ -11,4 +11,10 @@ module.exports = {
     sourceType: 'script',
     ecmaVersion: 2021,
   },
+  rules: {
+    'node/no-missing-import': 'off',
+    'node/no-missing-require': 'off',
+    'node/no-unsupported-features/es-syntax': 'off',
+    'node/shebang': 'off',
+  },
 }

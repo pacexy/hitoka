@@ -7,6 +7,7 @@ import { PackageJson } from 'type-fest'
 import { formatJSON, writeTemplate } from './utils'
 
 const pkgManager = 'yarn'
+const pkgAddCommand = 'add'
 const pkgInstallCommand = 'install'
 
 function generateESLintConfig() {
@@ -15,6 +16,10 @@ function generateESLintConfig() {
 
 function generatePrettierConfig() {
   writeTemplate('.prettierrc.js')
+}
+
+function generateTSConfig() {
+  writeTemplate('tsconfig.json')
 }
 
 function addDependencies() {
@@ -51,11 +56,21 @@ function install() {
     shell: true,
     stdio: 'inherit',
   })
+
+  child_process.spawnSync(
+    pkgManager,
+    [pkgAddCommand, '--dev', 'typescript, @types/node'],
+    {
+      shell: true,
+      stdio: 'inherit',
+    },
+  )
 }
 
 function init() {
   generateESLintConfig()
   generatePrettierConfig()
+  generateTSConfig()
   addDependencies()
   install()
 }
