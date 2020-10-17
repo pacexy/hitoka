@@ -7,7 +7,6 @@ import { PackageJson } from 'type-fest'
 import { formatJSON, writeTemplate } from './utils'
 
 const pkgManager = 'yarn'
-const pkgAddCommand = 'add'
 const pkgInstallCommand = 'install'
 
 function generateESLintConfig() {
@@ -25,13 +24,16 @@ function generateTSConfig() {
 function addDependencies() {
   console.log(`Add dependecies...`)
 
-  const pkg: PackageJson = require('../package.json')
+  const pkg: PackageJson = require('../../package.json')
   const destPkg: PackageJson = JSON.parse(
     fs.readFileSync('./package.json', { encoding: 'utf8' }),
   )
 
   const deps: Record<string, string> = {
     [pkg.name!]: `^${pkg.version}`,
+    // TODO: add devdeps with spawn
+    typescript: pkg.devDependencies!.typescript,
+    '@types/node': pkg.devDependencies!['@types/node'],
   }
 
   if (!destPkg.devDependencies) {
@@ -56,15 +58,6 @@ function install() {
     shell: true,
     stdio: 'inherit',
   })
-
-  child_process.spawnSync(
-    pkgManager,
-    [pkgAddCommand, '--dev', 'typescript, @types/node'],
-    {
-      shell: true,
-      stdio: 'inherit',
-    },
-  )
 }
 
 function init() {
