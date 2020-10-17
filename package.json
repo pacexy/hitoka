@@ -1,6 +1,6 @@
 {
   "name": "hitoka",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Hitoka is an eslint, prettier and typescript initializer.",
   "main": "index.js",
   "bin": {
