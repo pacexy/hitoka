@@ -24,6 +24,7 @@ function generateTSConfig() {
 function addDependencies() {
   console.log(`Add dependecies...`)
 
+  // eslint-disable-next-line node/no-unpublished-require
   const pkg: PackageJson = require('../../package.json')
   const destPkg: PackageJson = JSON.parse(
     fs.readFileSync('./package.json', { encoding: 'utf8' }),
