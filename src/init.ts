@@ -46,7 +46,7 @@ function addDependencies() {
 }
 
 function install() {
-  // on windows, spawn not working like linux, there are 3 solutions:
+  // on windows, spawn not works like linux, there are 3 solutions:
   // https://github.com/google/gts/issues/278
   // 1. add `.cmd` suffix
   // https://stackoverflow.com/questions/37459717/error-spawn-enoent-on-windows
