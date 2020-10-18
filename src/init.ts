@@ -43,10 +43,10 @@ function addDevDependencies() {
   console.log(`Add devDependecies...`)
 
   updatePackageJsonFieldInMemory(destPkg, 'devDependencies', {
+    '@types/node': pkg.devDependencies!['@types/node'],
     [pkg.name!]: `^${pkg.version}`,
     // TODO: add devdeps with spawn
     typescript: pkg.devDependencies!.typescript,
-    '@types/node': pkg.devDependencies!['@types/node'],
   })
 }
 
