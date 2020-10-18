@@ -36,6 +36,7 @@ function addScripts() {
 
   updatePackageJsonFieldInMemory(destPkg, 'scripts', {
     build: 'tsc',
+    prepare: 'npm run build',
   })
 }
 
