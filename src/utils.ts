@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { PackageJson } from 'type-fest'
 
 function formatJSON(object: object) {
   const json = JSON.stringify(object, null, '\t')
@@ -15,4 +16,18 @@ function writeTemplate(destFileName: string) {
   fs.copyFileSync(src, dest)
 }
 
-export { formatJSON, writeTemplate }
+function updatePackageJsonFieldInMemory(
+  packageJson: PackageJson,
+  fieldName: 'scripts' | 'devDependencies',
+  fieldValue: Record<string, string>,
+) {
+  if (!packageJson[fieldName]) {
+    packageJson[fieldName] = {}
+  }
+
+  for (const key of Object.keys(fieldValue)) {
+    packageJson[fieldName]![key] = fieldValue[key]
+  }
+}
+
+export { formatJSON, writeTemplate, updatePackageJsonFieldInMemory }

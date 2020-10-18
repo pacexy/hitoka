@@ -4,10 +4,20 @@ import child_process from 'child_process'
 import fs from 'fs'
 import { PackageJson } from 'type-fest'
 
-import { formatJSON, writeTemplate } from './utils'
+import {
+  formatJSON,
+  writeTemplate,
+  updatePackageJsonFieldInMemory,
+} from './utils'
 
 const pkgManager = 'yarn'
 const pkgInstallCommand = 'install'
+
+// eslint-disable-next-line node/no-unpublished-require
+const pkg: PackageJson = require('../../package.json')
+const destPkg: PackageJson = JSON.parse(
+  fs.readFileSync('./package.json', { encoding: 'utf8' }),
+)
 
 function generateESLintConfig() {
   writeTemplate('.eslintrc.js')
@@ -21,30 +31,26 @@ function generateTSConfig() {
   writeTemplate('tsconfig.json')
 }
 
-function addDependencies() {
-  console.log(`Add dependecies...`)
+function addScripts() {
+  console.log(`Add scripts...`)
 
-  // eslint-disable-next-line node/no-unpublished-require
-  const pkg: PackageJson = require('../../package.json')
-  const destPkg: PackageJson = JSON.parse(
-    fs.readFileSync('./package.json', { encoding: 'utf8' }),
-  )
+  updatePackageJsonFieldInMemory(destPkg, 'scripts', {
+    build: 'tsc',
+  })
+}
 
-  const deps: Record<string, string> = {
+function addDevDependencies() {
+  console.log(`Add devDependecies...`)
+
+  updatePackageJsonFieldInMemory(destPkg, 'devDependencies', {
     [pkg.name!]: `^${pkg.version}`,
     // TODO: add devdeps with spawn
     typescript: pkg.devDependencies!.typescript,
     '@types/node': pkg.devDependencies!['@types/node'],
-  }
+  })
+}
 
-  if (!destPkg.devDependencies) {
-    destPkg.devDependencies = {}
-  }
-
-  for (const depName of Object.keys(deps)) {
-    destPkg.devDependencies[depName] = deps[depName]
-  }
-
+function writePackageJson() {
   fs.writeFileSync('package.json', formatJSON(destPkg))
 }
 
@@ -65,7 +71,9 @@ function init() {
   generateESLintConfig()
   generatePrettierConfig()
   generateTSConfig()
-  addDependencies()
+  addScripts()
+  addDevDependencies()
+  writePackageJson()
   install()
 }
 
