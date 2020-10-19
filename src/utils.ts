@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { PackageJson } from 'type-fest'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function formatJSON(object: object) {
   const json = JSON.stringify(object, null, '\t')
   return `${json}\n`

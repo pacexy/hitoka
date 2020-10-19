@@ -13,7 +13,7 @@ import {
 const pkgManager = 'yarn'
 const pkgInstallCommand = 'install'
 
-// eslint-disable-next-line node/no-unpublished-require
+// eslint-disable-next-line node/no-unpublished-require, @typescript-eslint/no-var-requires
 const pkg: PackageJson = require('../../package.json')
 const destPkg: PackageJson = JSON.parse(
   fs.readFileSync('./package.json', { encoding: 'utf8' }),
