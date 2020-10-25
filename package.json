@@ -1,14 +1,22 @@
 {
   "name": "hitoka",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Hitoka is an eslint, prettier and typescript initializer.",
   "bin": {
-    "hitoka": "build/src/init.js"
+    "hitoka": "build/src/index.js"
   },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build"
   },
+  "files": [
+    "/template",
+    "/build/src",
+    "!/build/src/**/*.map",
+    ".eslintrc.js",
+    ".prettierrc.js",
+    "tsconfig.base.json"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/pacexy/hitoka.git"

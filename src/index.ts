@@ -19,6 +19,10 @@ const destPkg: PackageJson = JSON.parse(
   fs.readFileSync('./package.json', { encoding: 'utf8' }),
 )
 
+function generateGitIgnore() {
+  writeTemplate('.gitignore')
+}
+
 function generateESLintConfig() {
   writeTemplate('.eslintrc.js')
 }
@@ -69,6 +73,7 @@ function install() {
 }
 
 function init() {
+  generateGitIgnore()
   generateESLintConfig()
   generatePrettierConfig()
   generateTSConfig()
