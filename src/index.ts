@@ -8,6 +8,8 @@ import {
   formatJSON,
   writeTemplate,
   updatePackageJsonFieldInMemory,
+  ArrayField,
+  ObjectField,
 } from './utils'
 
 const pkgManager = 'yarn'
@@ -38,16 +40,25 @@ function generateTSConfig() {
 function addScripts() {
   console.log(`Add scripts...`)
 
-  updatePackageJsonFieldInMemory(destPkg, 'scripts', {
+  updatePackageJsonFieldInMemory(destPkg, ObjectField.scripts, {
     build: 'tsc',
     prepare: 'npm run build',
   })
 }
 
+function addFiles() {
+  console.log(`Add files...`)
+
+  updatePackageJsonFieldInMemory(destPkg, ArrayField.files, [
+    '/build/src',
+    '!/build/src/**/*.map',
+  ])
+}
+
 function addDevDependencies() {
   console.log(`Add devDependecies...`)
 
-  updatePackageJsonFieldInMemory(destPkg, 'devDependencies', {
+  updatePackageJsonFieldInMemory(destPkg, ObjectField.devDependencies, {
     '@types/node': pkg.devDependencies!['@types/node'],
     [pkg.name!]: `^${pkg.version}`,
     // TODO: add devdeps with spawn
@@ -78,6 +89,7 @@ function init() {
   generatePrettierConfig()
   generateTSConfig()
   addScripts()
+  addFiles()
   addDevDependencies()
   writePackageJson()
   install()

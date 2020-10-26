@@ -3,12 +3,12 @@ import path from 'path'
 import { PackageJson } from 'type-fest'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-function formatJSON(object: object) {
+export function formatJSON(object: object) {
   const json = JSON.stringify(object, null, '\t')
   return `${json}\n`
 }
 
-function writeTemplate(destFileName: string) {
+export function writeTemplate(destFileName: string) {
   console.log(`Writing ${destFileName}...`)
 
   const src = path.join(__dirname, '../../template', `${destFileName}.tmp`)
@@ -17,9 +17,29 @@ function writeTemplate(destFileName: string) {
   fs.copyFileSync(src, dest)
 }
 
-function updatePackageJsonFieldInMemory(
+export enum ArrayField {
+  files = 'files',
+}
+export enum ObjectField {
+  scripts = 'scripts',
+  devDependencies = 'devDependencies',
+}
+
+function updatePackageJsonArrayFieldInMemory(
   packageJson: PackageJson,
-  fieldName: 'scripts' | 'devDependencies',
+  fieldName: ArrayField,
+  fieldValue: string[],
+) {
+  if (!packageJson[fieldName]) {
+    packageJson[fieldName] = []
+  }
+
+  packageJson[fieldName] = [...packageJson[fieldName]!, ...fieldValue]
+}
+
+function updatePackageJsonObjectFieldInMemory(
+  packageJson: PackageJson,
+  fieldName: ObjectField,
   fieldValue: Record<string, string>,
 ) {
   if (!packageJson[fieldName]) {
@@ -31,4 +51,38 @@ function updatePackageJsonFieldInMemory(
   }
 }
 
-export { formatJSON, writeTemplate, updatePackageJsonFieldInMemory }
+type FieldValue<T> = T extends ArrayField
+  ? string[]
+  : T extends ObjectField
+  ? Record<string, string>
+  : never
+
+function isArrayField(fieldName: string): fieldName is ArrayField {
+  return Object.keys(ArrayField).includes(fieldName)
+}
+
+function isObjectField(fieldName: string): fieldName is ObjectField {
+  return Object.keys(ObjectField).includes(fieldName)
+}
+
+export function updatePackageJsonFieldInMemory<
+  T extends ArrayField | ObjectField
+>(packageJson: PackageJson, fieldName: T, fieldValue: FieldValue<T>) {
+  if (isArrayField(fieldName)) {
+    updatePackageJsonArrayFieldInMemory(
+      packageJson,
+      fieldName,
+      // TODO: don not use assertion
+      fieldValue as string[],
+    )
+    return
+  }
+  if (isObjectField(fieldName)) {
+    updatePackageJsonObjectFieldInMemory(
+      packageJson,
+      fieldName,
+      // TODO: don not use assertion
+      fieldValue as Record<string, string>,
+    )
+  }
+}
