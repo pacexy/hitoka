@@ -22,6 +22,7 @@ export enum ArrayField {
 }
 export enum ObjectField {
   scripts = 'scripts',
+  engines = 'engines',
   devDependencies = 'devDependencies',
 }
 
@@ -30,11 +31,7 @@ function updatePackageJsonArrayFieldInMemory(
   fieldName: ArrayField,
   fieldValue: string[],
 ) {
-  if (!packageJson[fieldName]) {
-    packageJson[fieldName] = []
-  }
-
-  packageJson[fieldName] = [...packageJson[fieldName]!, ...fieldValue]
+  packageJson[fieldName] = [...(packageJson[fieldName] ?? []), ...fieldValue]
 }
 
 function updatePackageJsonObjectFieldInMemory(
@@ -42,9 +39,7 @@ function updatePackageJsonObjectFieldInMemory(
   fieldName: ObjectField,
   fieldValue: Record<string, string>,
 ) {
-  if (!packageJson[fieldName]) {
-    packageJson[fieldName] = {}
-  }
+  packageJson[fieldName] ??= {}
 
   for (const key of Object.keys(fieldValue)) {
     packageJson[fieldName]![key] = fieldValue[key]

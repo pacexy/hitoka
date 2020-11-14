@@ -55,6 +55,14 @@ function addFiles() {
   ])
 }
 
+function addEngines() {
+  console.log(`Add engines...`)
+
+  updatePackageJsonFieldInMemory(destPkg, ObjectField.engines, {
+    node: '>=14.0.0',
+  })
+}
+
 function addDevDependencies() {
   console.log(`Add devDependecies...`)
 
@@ -90,6 +98,7 @@ function init() {
   generateTSConfig()
   addScripts()
   addFiles()
+  addEngines()
   addDevDependencies()
   writePackageJson()
   install()
