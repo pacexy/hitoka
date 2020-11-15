@@ -1,4 +1,8 @@
 node_modules/
 build/
+backup/
+playground/
+
+.todo
 
 yarn-error.log
