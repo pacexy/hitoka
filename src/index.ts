@@ -8,6 +8,7 @@ import {
   formatJSON,
   writeTemplate,
   updatePackageJsonFieldInMemory,
+  PrimitiveField,
   ArrayField,
   ObjectField,
 } from './utils'
@@ -35,6 +36,16 @@ function generatePrettierConfig() {
 
 function generateTSConfig() {
   writeTemplate('tsconfig.json')
+}
+
+function overrideMain() {
+  console.log(`Modify main...`)
+
+  updatePackageJsonFieldInMemory(
+    destPkg,
+    PrimitiveField.main,
+    'build/src/index.js',
+  )
 }
 
 function addScripts() {
@@ -92,14 +103,19 @@ function install() {
 }
 
 function init() {
+  // generate files by templates
   generateGitIgnore()
   generateESLintConfig()
   generatePrettierConfig()
   generateTSConfig()
+
+  // modify `package.json`
+  overrideMain()
   addScripts()
   addFiles()
   addEngines()
   addDevDependencies()
+
   writePackageJson()
   install()
 }

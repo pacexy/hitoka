@@ -17,6 +17,10 @@ export function writeTemplate(destFileName: string) {
   fs.copyFileSync(src, dest)
 }
 
+export enum PrimitiveField {
+  main = 'main',
+}
+
 export enum ArrayField {
   files = 'files',
 }
@@ -24,6 +28,14 @@ export enum ObjectField {
   scripts = 'scripts',
   engines = 'engines',
   devDependencies = 'devDependencies',
+}
+
+function updatePackageJsonPrimitiveFieldInMemory(
+  packageJson: PackageJson,
+  fieldName: PrimitiveField,
+  fieldValue: string,
+) {
+  packageJson[fieldName] = fieldValue
 }
 
 function updatePackageJsonArrayFieldInMemory(
@@ -46,11 +58,17 @@ function updatePackageJsonObjectFieldInMemory(
   }
 }
 
-type FieldValue<T> = T extends ArrayField
+type FieldValue<T> = T extends PrimitiveField
+  ? string
+  : T extends ArrayField
   ? string[]
   : T extends ObjectField
   ? Record<string, string>
   : never
+
+function isPrimitiveField(fieldName: string): fieldName is PrimitiveField {
+  return Object.keys(PrimitiveField).includes(fieldName)
+}
 
 function isArrayField(fieldName: string): fieldName is ArrayField {
   return Object.keys(ArrayField).includes(fieldName)
@@ -61,8 +79,18 @@ function isObjectField(fieldName: string): fieldName is ObjectField {
 }
 
 export function updatePackageJsonFieldInMemory<
-  T extends ArrayField | ObjectField
+  T extends PrimitiveField | ArrayField | ObjectField
 >(packageJson: PackageJson, fieldName: T, fieldValue: FieldValue<T>) {
+  if (isPrimitiveField(fieldName)) {
+    updatePackageJsonPrimitiveFieldInMemory(
+      packageJson,
+      fieldName,
+      // TODO: don not use assertion
+      fieldValue as string,
+    )
+    return
+  }
+
   if (isArrayField(fieldName)) {
     updatePackageJsonArrayFieldInMemory(
       packageJson,
@@ -72,6 +100,7 @@ export function updatePackageJsonFieldInMemory<
     )
     return
   }
+
   if (isObjectField(fieldName)) {
     updatePackageJsonObjectFieldInMemory(
       packageJson,
