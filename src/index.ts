@@ -53,7 +53,7 @@ function addScripts() {
 
   updatePackageJsonFieldInMemory(destPkg, ObjectField.scripts, {
     build: 'tsc',
-    prepare: 'npm run build',
+    format: 'prettier --write src/**/*.{ts,tsx}',
   })
 }
 
