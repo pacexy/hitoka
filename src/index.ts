@@ -22,22 +22,6 @@ const destPkg: PackageJson = JSON.parse(
   fs.readFileSync('./package.json', { encoding: 'utf8' }),
 )
 
-function generateGitIgnore() {
-  writeTemplate('.gitignore')
-}
-
-function generateESLintConfig() {
-  writeTemplate('.eslintrc.js')
-}
-
-function generatePrettierConfig() {
-  writeTemplate('.prettierrc.js')
-}
-
-function generateTSConfig() {
-  writeTemplate('tsconfig.json')
-}
-
 function overrideMain() {
   console.log(`Modify main...`)
 
@@ -107,10 +91,11 @@ function install() {
 
 function init() {
   // generate files by templates
-  generateGitIgnore()
-  generateESLintConfig()
-  generatePrettierConfig()
-  generateTSConfig()
+  writeTemplate('.gitignore')
+  writeTemplate('.eslintrc.js')
+  writeTemplate('.prettierrc.js')
+  writeTemplate('tsconfig.json')
+  writeTemplate('jest.config.js')
 
   // modify `package.json`
   overrideMain()
