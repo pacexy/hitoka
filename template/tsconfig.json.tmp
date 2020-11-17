@@ -2,10 +2,11 @@
   "extends": "hitoka/tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "build"
+    "baseUrl": "src",
+    "outDir": "build",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
-  ]
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

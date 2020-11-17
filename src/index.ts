@@ -52,6 +52,8 @@ function addScripts() {
   console.log(`Add scripts...`)
 
   updatePackageJsonFieldInMemory(destPkg, ObjectField.scripts, {
+    dev: 'ts-node -r tsconfig-paths/register src/index.ts',
+    // TODO: resolve tsc path alias
     build: 'tsc',
     format: 'prettier --write src/**/*.{ts,tsx}',
   })
@@ -78,9 +80,10 @@ function addDevDependencies() {
   console.log(`Add devDependecies...`)
 
   updatePackageJsonFieldInMemory(destPkg, ObjectField.devDependencies, {
+    // TODO: add devdeps with spawn
     '@types/node': pkg.devDependencies!['@types/node'],
     [pkg.name!]: `^${pkg.version}`,
-    // TODO: add devdeps with spawn
+    'tsconfig-paths': pkg.devDependencies!['tsconfig-paths'],
     typescript: pkg.devDependencies!.typescript,
   })
 }
