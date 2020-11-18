@@ -50,6 +50,12 @@ function updatePackageJsonArrayFieldInMemory(
   ])
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+function sortPropertiesByKey(object: object) {
+  // https://github.com/lodash/lodash/issues/1459#issuecomment-253969771
+  return _(object).toPairs().sortBy(0).fromPairs().value()
+}
+
 function updatePackageJsonObjectFieldInMemory(
   packageJson: PackageJson,
   fieldName: ObjectField,
@@ -58,7 +64,11 @@ function updatePackageJsonObjectFieldInMemory(
   packageJson[fieldName] ??= {}
 
   for (const key of Object.keys(fieldValue)) {
-    packageJson[fieldName]![key] = fieldValue[key]
+    packageJson[fieldName]![key] ??= fieldValue[key]
+  }
+
+  if (fieldName === ObjectField.devDependencies) {
+    packageJson[fieldName] = sortPropertiesByKey(packageJson[fieldName]!)
   }
 }
 
