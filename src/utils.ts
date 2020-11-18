@@ -1,4 +1,5 @@
 import fs from 'fs'
+import _ from 'lodash'
 import path from 'path'
 import { PackageJson } from 'type-fest'
 
@@ -35,7 +36,7 @@ function updatePackageJsonPrimitiveFieldInMemory(
   fieldName: PrimitiveField,
   fieldValue: string,
 ) {
-  packageJson[fieldName] = fieldValue
+  packageJson[fieldName] ??= fieldValue
 }
 
 function updatePackageJsonArrayFieldInMemory(
@@ -43,7 +44,10 @@ function updatePackageJsonArrayFieldInMemory(
   fieldName: ArrayField,
   fieldValue: string[],
 ) {
-  packageJson[fieldName] = [...(packageJson[fieldName] ?? []), ...fieldValue]
+  packageJson[fieldName] = _.uniq([
+    ...(packageJson[fieldName] ?? []),
+    ...fieldValue,
+  ])
 }
 
 function updatePackageJsonObjectFieldInMemory(
@@ -78,6 +82,7 @@ function isObjectField(fieldName: string): fieldName is ObjectField {
   return Object.keys(ObjectField).includes(fieldName)
 }
 
+// TODO: inquirer
 export function updatePackageJsonFieldInMemory<
   T extends PrimitiveField | ArrayField | ObjectField
 >(packageJson: PackageJson, fieldName: T, fieldValue: FieldValue<T>) {
