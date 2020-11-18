@@ -65,8 +65,11 @@ function addDevDependencies() {
 
   updatePackageJsonFieldInMemory(destPkg, ObjectField.devDependencies, {
     // TODO: add devdeps with spawn
+    '@types/jest': pkg.devDependencies!['@types/jest'],
     '@types/node': pkg.devDependencies!['@types/node'],
     [pkg.name!]: `^${pkg.version}`,
+    jest: pkg.devDependencies!.jest,
+    'ts-jest': pkg.devDependencies!['ts-jest'],
     'tsconfig-paths': pkg.devDependencies!['tsconfig-paths'],
     typescript: pkg.devDependencies!.typescript,
   })
