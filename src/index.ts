@@ -56,7 +56,7 @@ function addEngines() {
   console.log(`Add engines...`)
 
   updatePackageJsonFieldInMemory(destPkg, ObjectField.engines, {
-    node: '>=14.0.0',
+    node: '>=12.0.0',
   })
 }
 
