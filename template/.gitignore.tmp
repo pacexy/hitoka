@@ -4,5 +4,6 @@ backup/
 playground/
 
 .todo
+.note
 
 yarn-error.log
