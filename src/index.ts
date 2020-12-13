@@ -39,6 +39,7 @@ function addScripts() {
     dev: 'ts-node -r tsconfig-paths/register src/index.ts',
     // TODO: resolve tsc path alias
     build: 'tsc',
+    lint: 'eslint src/**/*.{ts,tsx}',
     format: 'prettier --write src/**/*.{ts,tsx}',
   })
 }
@@ -69,6 +70,8 @@ function addDevDependencies() {
   ;[
     '@types/jest',
     '@types/node',
+    'eslint',
+    'prettier',
     'jest',
     'ts-jest',
     'tsconfig-paths',

@@ -10,7 +10,7 @@ export function formatJSON(object: object) {
 }
 
 export function writeTemplate(destFileName: string) {
-  console.log(`Writing ${destFileName}...`)
+  console.log(`CREATE ${destFileName}`)
 
   const src = path.join(__dirname, '../../template', `${destFileName}.tmp`)
   const dest = path.resolve(destFileName)
