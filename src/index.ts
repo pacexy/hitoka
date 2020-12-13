@@ -76,6 +76,8 @@ function addDevDependencies() {
     'ts-jest',
     'tsconfig-paths',
     'typescript',
+    'husky',
+    'lint-staged',
   ].forEach((name) => (devDependencies[name] = pkg.devDependencies![name]))
 
   updatePackageJsonFieldInMemory(
@@ -109,6 +111,8 @@ function init() {
   writeTemplate('.prettierrc.js')
   writeTemplate('tsconfig.json')
   writeTemplate('jest.config.js')
+  writeTemplate('.huskyrc.js')
+  writeTemplate('.lintstagedrc.js')
 
   // modify `package.json`
   overrideMain()
