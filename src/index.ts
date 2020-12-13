@@ -62,17 +62,24 @@ function addEngines() {
 
 function addDevDependencies() {
   console.log(`Add devDependecies...`)
-
-  updatePackageJsonFieldInMemory(destPkg, ObjectField.devDependencies, {
-    // TODO: add devdeps with spawn
-    '@types/jest': pkg.devDependencies!['@types/jest'],
-    '@types/node': pkg.devDependencies!['@types/node'],
+  const devDependencies = {
     [pkg.name!]: `^${pkg.version}`,
-    jest: pkg.devDependencies!.jest,
-    'ts-jest': pkg.devDependencies!['ts-jest'],
-    'tsconfig-paths': pkg.devDependencies!['tsconfig-paths'],
-    typescript: pkg.devDependencies!.typescript,
-  })
+  }
+
+  ;[
+    '@types/jest',
+    '@types/node',
+    'jest',
+    'ts-jest',
+    'tsconfig-paths',
+    'typescript',
+  ].forEach((name) => (devDependencies[name] = pkg.devDependencies![name]))
+
+  updatePackageJsonFieldInMemory(
+    destPkg,
+    ObjectField.devDependencies,
+    devDependencies,
+  )
 }
 
 function writePackageJson() {
