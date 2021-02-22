@@ -1,7 +1,9 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 import child_process from 'child_process'
 import fs from 'fs'
+
 import { PackageJson } from 'type-fest'
 
 import {

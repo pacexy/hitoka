@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import fs from 'fs'
-import _ from 'lodash'
 import path from 'path'
+
+import _ from 'lodash'
 import { PackageJson } from 'type-fest'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
