@@ -93,13 +93,12 @@ function install() {
 
 function init() {
   // generate files by templates
-  writeTemplate('.gitignore')
   writeTemplate('.eslintrc.js')
   writeTemplate('.prettierrc.js')
-  writeTemplate('tsconfig.json')
-  writeTemplate('jest.config.js')
   writeTemplate('.huskyrc.js')
   writeTemplate('.lintstagedrc.js')
+  writeTemplate('tsconfig.json')
+  writeTemplate('jest.config.js')
 
   // modify `package.json`
   overrideMain()
