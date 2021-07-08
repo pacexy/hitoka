@@ -1,9 +1,0 @@
-node_modules/
-build/
-backup/
-playground/
-
-.todo
-.note
-
-yarn-error.log

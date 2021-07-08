@@ -14,7 +14,7 @@ export function formatJSON(object: object) {
 export function writeTemplate(destFileName: string) {
   console.log(`CREATE ${destFileName}`)
 
-  const src = path.join(__dirname, '../../template', `${destFileName}.tmp`)
+  const src = path.join(__dirname, '../..', destFileName)
   const dest = path.resolve(destFileName)
 
   fs.copyFileSync(src, dest)

@@ -30,7 +30,7 @@ function overrideMain() {
   updatePackageJsonFieldInMemory(
     destPkg,
     PrimitiveField.main,
-    'build/src/index.js',
+    'out/src/index.js',
   )
 }
 
@@ -41,7 +41,7 @@ function addScripts() {
     dev: 'ts-node -r tsconfig-paths/register src/index.ts',
     // TODO: resolve tsc path alias
     build: 'tsc',
-    lint: 'eslint src/**/*.{ts,tsx}',
+    lint: 'eslint src/**/*.{ts,tsx}  --fix',
     format: 'prettier --write src/**/*.{ts,tsx}',
   })
 }
@@ -50,8 +50,8 @@ function addFiles() {
   console.log(`Add files...`)
 
   updatePackageJsonFieldInMemory(destPkg, ArrayField.files, [
-    '/build/src',
-    '!/build/src/**/*.map',
+    '/out/src',
+    '!/out/src/**/*.map',
   ])
 }
 
@@ -65,9 +65,7 @@ function addEngines() {
 
 function addDevDependencies() {
   console.log(`Add devDependecies...`)
-  const devDependencies = {
-    [pkg.name!]: `^${pkg.version}`,
-  }
+  const devDependencies: Record<string, string> = {}
 
   ;[
     '@types/jest',
