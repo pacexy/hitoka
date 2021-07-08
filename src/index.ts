@@ -65,20 +65,7 @@ function addEngines() {
 
 function addDevDependencies() {
   console.log(`Add devDependecies...`)
-  const devDependencies: Record<string, string> = {}
-
-  ;[
-    '@types/jest',
-    '@types/node',
-    'eslint',
-    'prettier',
-    'jest',
-    'ts-jest',
-    'tsconfig-paths',
-    'typescript',
-    'husky',
-    'lint-staged',
-  ].forEach((name) => (devDependencies[name] = pkg.devDependencies![name]))
+  const devDependencies = pkg.devDependencies!
 
   updatePackageJsonFieldInMemory(
     destPkg,
