@@ -96,7 +96,7 @@ function isObjectField(fieldName: string): fieldName is ObjectField {
 
 // TODO: inquirer
 export function updatePackageJsonFieldInMemory<
-  T extends PrimitiveField | ArrayField | ObjectField
+  T extends PrimitiveField | ArrayField | ObjectField,
 >(packageJson: PackageJson, fieldName: T, fieldValue: FieldValue<T>) {
   if (isPrimitiveField(fieldName)) {
     updatePackageJsonPrimitiveFieldInMemory(
